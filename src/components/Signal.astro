@@ -1,0 +1,42 @@
+---
+interface Props { variant?: 'hero' | 'pipeline'; }
+const { variant = 'hero' } = Astro.props;
+---
+<svg class:list={['signal-art', variant]} viewBox="0 0 600 500" fill="none" aria-hidden="true">
+  <defs>
+    <pattern id={`grid-${variant}`} width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".18" /></pattern>
+    <radialGradient id={`glow-${variant}`}><stop stop-color="#7eb98c" stop-opacity=".12"/><stop offset="1" stop-color="#7eb98c" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="600" height="500" fill={`url(#grid-${variant})`} />
+  <circle cx="300" cy="250" r="235" fill={`url(#glow-${variant})`} />
+  <g class="orbit-field" stroke="currentColor" opacity=".26">
+    <circle cx="300" cy="250" r="192"/><circle cx="300" cy="250" r="140"/>
+    <ellipse cx="300" cy="250" rx="242" ry="90" transform="rotate(-32 300 250)"/>
+    <ellipse cx="300" cy="250" rx="242" ry="90" transform="rotate(32 300 250)"/>
+    <path d="M300 35v430M65 250h470" stroke-dasharray="3 7"/>
+  </g>
+  <g class="signal-nodes" fill="currentColor">
+    <circle cx="136" cy="151" r="5"/><circle cx="462" cy="353" r="5"/><circle cx="390" cy="80" r="4"/>
+    <circle cx="175" cy="354" r="4"/><circle cx="489" cy="211" r="3"/><circle cx="262" cy="112" r="3"/>
+  </g>
+  <g class="wave-layer">
+    <path class="wave-shadow" d="M30 250H150l16-20 20 40 27-20h22l19-67 27 145 30-222 30 144h28l16-22 18 40 22-18h145" stroke="currentColor" stroke-width="12" opacity=".06"/>
+    <path class="signal-wave" d="M30 250H150l16-20 20 40 27-20h22l19-67 27 145 30-222 30 144h28l16-22 18 40 22-18h145" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+  {variant === 'pipeline' && <>
+    <g class="prepare-layer stage-layer" stroke="currentColor">
+      {Array.from({ length: 19 }, (_, i) => <rect x={130 + (i % 5) * 72} y={108 + Math.floor(i / 5) * 72} width="48" height="48" rx="7" fill="currentColor" fill-opacity={.03 + (i % 3) * .04} />)}
+    </g>
+    <g class="ensemble-layer stage-layer" stroke="currentColor" stroke-width="1.5">
+      <path d="M90 250h55l65-120h125l85 120h90M145 250h275M145 250l65 120h125l85-120"/>
+      {[130, 250, 370].map((y) => <g><rect x="200" y={y - 24} width="145" height="48" rx="24" fill="#142019"/><circle cx="90" cy="250" r="8" fill="currentColor"/><circle cx="510" cy="250" r="8" fill="currentColor"/></g>)}
+      <g fill="currentColor" stroke="none" font-size="13" font-family="monospace" text-anchor="middle"><text x="272" y="135">RIBEIRO CNN</text><text x="272" y="255">CE-SSL</text><text x="272" y="375">HuBERT-ECG</text></g>
+    </g>
+    <g class="evaluation-layer stage-layer">
+      <circle cx="300" cy="250" r="145" stroke="currentColor" stroke-width="2" stroke-dasharray="4 8"/>
+      <text x="300" y="255" text-anchor="middle" fill="currentColor" font-size="76" font-family="Arial,sans-serif" letter-spacing="-5">0.964</text>
+      <text x="300" y="290" text-anchor="middle" fill="currentColor" font-size="13" font-family="monospace" letter-spacing="3">MACRO AUROC</text>
+    </g>
+  </>}
+  <g stroke="currentColor" opacity=".5"><path d="M18 45V18h27M555 18h27v27M18 455v27h27M555 482h27v-27"/></g>
+</svg>

@@ -2,7 +2,7 @@
 
 Prepared: 21 September 2026.
 
-Status: planning and package research complete; packages have not been installed and the website has not been built or published.
+Status: first implementation complete; dependencies, application and deployment workflow are present. This document preserves the design intent. See [implementation notes](docs/IMPLEMENTATION.md), [validation results](docs/VALIDATION.md) and the [project log](docs/PROJECT_LOG.md) for actual release evidence and remaining limitations.
 
 Repository setup is now complete: `sahilshah2904/sahil-shah-portfolio`, branch `main`. The target is a GitHub Pages project site at `https://sahilshah2904.github.io/sahil-shah-portfolio/`. See the [README](README.md) for the documentation index and [project log](docs/PROJECT_LOG.md) for verified progress.
 

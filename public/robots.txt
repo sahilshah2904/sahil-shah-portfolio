@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sahilshah2904.github.io/sahil-shah-portfolio/sitemap-index.xml

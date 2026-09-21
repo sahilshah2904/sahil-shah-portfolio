@@ -2,7 +2,7 @@
 
 ## Status and destination
 
-Deployment is planned. No workflow or application build exists in this revision, and repository Pages settings have not been verified. A successful Git push currently publishes repository files only; it does not establish that a website has been deployed.
+The static application and deployment workflow are present. The first push triggers validation and deployment; repository Pages settings still need to use GitHub Actions. A successful push alone does not establish that the website deployed, so verify the Actions run and public URL.
 
 | Setting | Intended value |
 | --- | --- |
@@ -12,11 +12,11 @@ Deployment is planned. No workflow or application build exists in this revision,
 | Astro `site` | `https://sahilshah2904.github.io` |
 | Astro `base` | `/sahil-shah-portfolio` |
 | Build output | Static `dist/` artifact |
-| Workflow file | `.github/workflows/deploy.yml` (to be created) |
+| Workflow file | `.github/workflows/deploy.yml` |
 
 ## Application configuration
 
-The eventual `astro.config.mjs` should include the following settings alongside the selected styling and sitemap integrations:
+`astro.config.mjs` includes these project-site settings alongside the styling and sitemap integrations:
 
 ```js
 import { defineConfig } from "astro/config";
@@ -34,14 +34,14 @@ All internal asset and download URLs must include the project base path. Test th
 
 Prerequisites: a committed application, lockfile, passing production build, configured checks and repository settings access.
 
-1. Add the deployment workflow based on [Astro's maintained GitHub Pages workflow](https://docs.astro.build/en/guides/deploy/github/). Record the actual action versions and Node runtime when implemented.
-2. Make checks and build succeed before publishing. Use lockfile-based dependency installation. Upload `dist/` as the Pages artifact.
-3. Configure deployment for pushes to `main` and manual dispatch, with read access to contents and the Pages/OIDC permissions needed by the official workflow. Use the `github-pages` environment and prevent conflicting deployments.
+1. Review the deployment workflow, pinned action versions and Node runtime.
+2. Run checks and build before publishing. The workflow uses lockfile-based installation and uploads `dist/` as the Pages artifact.
+3. The workflow deploys pushes to `main` and manual runs, with read access to contents and Pages/OIDC permissions in the `github-pages` environment.
 4. In the repository, open Settings → Pages → Build and deployment → Source, and select GitHub Actions. [GitHub publishing-source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 5. Push the completed changes. In Actions, inspect the run for that commit and confirm deployment succeeds.
 6. Open the deployed URL and perform the release checks below.
 
-Do not treat this guide as an executable workflow. The actual YAML must be created and tested during the deployment milestone.
+The workflow is the executable deployment definition. Use the Actions run for the pushed commit as the authoritative deployment result.
 
 ## Release checks
 

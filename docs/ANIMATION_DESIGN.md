@@ -1,6 +1,6 @@
 # Experience and animation specification
 
-Status: proposed implementation contract, revised 21 September 2026 from the owner's request for Anime.js-style flow. No animation prototype has been built. Read with the [website plan](../WEBSITE_PLAN.md) and [delivery plan](DELIVERY_PLAN.md).
+Status: design contract, revised 21 September 2026 from the owner's request for Anime.js-style flow. The first implementation is built; see [implementation notes](IMPLEMENTATION.md) for delivered scope and tradeoffs, and [validation results](VALIDATION.md) for test evidence. Read with the [website plan](../WEBSITE_PLAN.md) and [delivery plan](DELIVERY_PLAN.md).
 
 ## Experience intent
 

@@ -37,20 +37,29 @@ This log records verified work and decisions. Git history is the record of commi
 - Existing staged documentation was preserved; these revisions are working-tree changes and are not automatically staged or committed. Unrelated untracked files were left untouched.
 - Validation: `git diff --check` passed. The read-only Node documentation check inspected 10 Markdown files and resolved all 43 relative file/heading links, with balanced code fences and no trailing whitespace. No packages were installed and no application/browser tests were run; these are still planned work.
 
+## 2026-09-21 — First portfolio implementation
+
+- Implemented the Astro static portfolio, structured resume content, original SVG visuals, responsive styling and Anime.js interactions.
+- Added base-aware GitHub Pages configuration, the downloadable PDF, sitemap, metadata and social preview assets.
+- Added the pinned dependency lockfile, three-browser Playwright and axe coverage, bundle checks and the GitHub Pages Actions workflow.
+- Corrected the project-number contrast and made URL fragments authoritative after reload and browser scroll restoration.
+- Release validation passed: Astro check, documentation links, production build, bundle budgets, production dependency audit and all 24 browser tests across Chromium, Firefox and WebKit.
+- Physical-device, screen-reader, subjective visual review and production URL verification remain post-deployment checks.
+
 ## Current handoff
 
 | Area | State |
 | --- | --- |
 | Resume and package research | Complete; see the plan. |
-| Repository setup | Verified at `10e0367`. |
+| Repository setup | Connected to `sahilshah2904/sahil-shah-portfolio` on `main`. |
 | Ignore rules | Verified after the indentation fix. |
-| Documentation | Prepared locally. |
-| Application and lockfile | Not created. |
-| UI and animation implementation | Not started. |
-| Browser tests and performance results | Not available. |
-| GitHub Pages deployment | Pending; repository settings not verified. |
+| Documentation | Updated for the first application release. |
+| Application and lockfile | Complete. |
+| UI and animation implementation | Complete for the first release. |
+| Browser tests and performance results | Release suite passed; see `VALIDATION.md`. |
+| GitHub Pages deployment | Workflow ready; first Actions deployment and Pages setting verification pending. |
 
-Next: scaffold Astro and implement the connected hero-to-ECG prototype with Anime.js, then pass the prototype review and technical gates before expanding the scenes. Before launch, verify the LinkedIn destination, any supplied project links and the employment dates marked “Present”.
+Next: push the release, select GitHub Actions as the Pages source, verify the live URL and record the deployed commit/run. Later content review should verify the LinkedIn destination, any project links and employment dates marked “Present”.
 
 ## Entry format for future work
 

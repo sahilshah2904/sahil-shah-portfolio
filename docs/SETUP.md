@@ -1,10 +1,10 @@
 # Setup and reproduction
 
-Status: instructions for the current documentation repository, followed by the prerequisites for the planned application.
+Status: the Astro application and lockfile are present. These instructions reproduce the implemented site; the original Git setup is retained as history below.
 
 ## Prerequisites
 
-Git and a text editor are enough to inspect this revision. Website development will also need Node.js and npm. The planning session used Node.js `24.13.0` and npm `11.6.2` on Windows PowerShell. The selected Astro release declares Node.js `>=22.12.0` and npm `>=9.6.5`.
+Use Git, a text editor, Node.js and npm. The implementation environment uses Node.js `24.13.0` and npm `11.6.2` on Windows PowerShell. `.nvmrc` records the Node version used by the deployment workflow.
 
 ```powershell
 git --version
@@ -26,7 +26,14 @@ git status --short --branch
 git log -3 --oneline
 ```
 
-Expected: `origin` points to the repository, the branch is `main`, and a fresh clone has no local changes. Read the [plan](../WEBSITE_PLAN.md) before implementation. This revision has no application to start and no dependencies to install.
+Expected: `origin` points to the repository, the branch is `main`, and a fresh clone has no local changes. Continue from the repository root:
+
+```powershell
+npm ci
+npm run dev
+```
+
+Open the terminal's URL, including `/sahil-shah-portfolio/` (normally `http://localhost:4321/sahil-shah-portfolio/`). Stop the server with Ctrl+C. For a production preview run `npm run build`, then `npm run preview`. The build refreshes the public PDF from the source file.
 
 The author's existing checkout is `S:\AI_Engineer_Journey\Projects\Resume_Profile`. Its local directory name does not need to match the GitHub repository name. Do not initialise it again or add a second `origin`.
 
@@ -89,11 +96,12 @@ Use the verified email or GitHub-provided no-reply address you intend to associa
 | Symptom | What to check |
 | --- | --- |
 | `npm.ps1` blocked by PowerShell | Try the Windows launcher `npm.cmd`; use `npx.cmd` for npx. |
-| npm reports missing `package.json` | In this revision that is expected. After scaffolding, confirm you are in the root containing the manifest. |
+| npm reports missing `package.json` | Confirm you are in the repository root containing the manifest. |
 | `remote origin already exists` | Run `git remote -v`; an existing correct remote requires no change. |
 | Push denied or authentication failed | Confirm the signed-in account has repository write access. |
 | Push rejected because remote has new commits | Preserve local work, fetch and review the changes, then integrate them. |
 | Generated files appear in Git | Check ignore spelling/indentation and whether those files are already tracked. |
 | Git reports dubious ownership | Use your normal account. For a known, trusted checkout inspected by a separate automation account, a command-scoped `git -c safe.directory=ABSOLUTE_REPOSITORY_PATH status` can be used; do not trust all directories globally. |
+| Astro cannot create its Windows config folder | Run from your normal user terminal. Restricted automation may need access to Astro's per-user configuration directory. CI disables optional telemetry. |
 
 Continue with the [development guide](DEVELOPMENT.md) and [contribution workflow](../CONTRIBUTING.md).
