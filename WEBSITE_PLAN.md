@@ -4,13 +4,17 @@ Prepared: 21 September 2026.
 
 Status: planning and package research complete; packages have not been installed and the website has not been built or published.
 
+Repository setup is now complete: `sahilshah2904/sahil-shah-portfolio`, branch `main`. The target is a GitHub Pages project site at `https://sahilshah2904.github.io/sahil-shah-portfolio/`. See the [README](README.md) for the documentation index and [project log](docs/PROJECT_LOG.md) for verified progress.
+
 ## Goal and direction
 
 Create a polished, responsive personal website using `Sahil_Shah_Resume.pdf` as the source for biographical content, qualifications, employment, project claims and metrics. Make it easy for a recruiter to understand Sahil's AI work, inspect his experience, download his resume and contact him.
 
-Recommended architecture: Astro static pages, TypeScript, Tailwind CSS and Motion's vanilla JavaScript API, deployed to GitHub Pages through GitHub Actions. Static HTML will contain all resume content before animation scripts run.
+Selected architecture: Astro static pages, TypeScript, Tailwind CSS and Anime.js, deployed to GitHub Pages through GitHub Actions. Anime.js replaces the previously proposed Motion dependency. Static HTML will contain all resume content before animation scripts run.
 
-Proposed visual direction, pending preference: dark charcoal, warm white text, teal highlights, generous spacing and an understated ECG-inspired hero illustration. Use original SVG/CSS graphics, a typographic name treatment and clear project cards. A portrait is optional. This direction connects the design to the strongest project in the resume.
+The owner requests an Anime.js-inspired flow with connected visual storytelling beyond scrolling through information blocks. Working reference: the animation vocabulary of [animejs.com](https://animejs.com/), interpreted through an original portfolio design. The [experience specification](docs/ANIMATION_DESIGN.md) defines the storyboard, controls, responsive behaviour and animation lifecycle. The [delivery plan](docs/DELIVERY_PLAN.md) defines scope, dependencies, risks, release gates and measurable acceptance criteria.
+
+Proposed visual treatment: dark charcoal, warm white text, teal highlights, generous spacing and an ECG-inspired signal connecting scenes. Typography, original SVG illustrations and continuous transitions carry the composition. A portrait is optional. Colour choices remain provisional; the connected animation direction is now a requirement. No library choice alone guarantees this experience: it must pass the prototype review before full production.
 
 ## Package inventory
 
@@ -21,7 +25,7 @@ Versions below were checked using `npm view` on the preparation date. They are a
 | `astro` | `7.3.3` | Generate static pages and provide local development/build tooling. |
 | `tailwindcss` | `4.3.3` | Responsive styles, spacing, typography and colour tokens. |
 | `@tailwindcss/vite` | `4.3.3` | Connect Tailwind to Astro's underlying Vite build. |
-| `motion` | `13.4.0` | Entrance sequences, viewport reveals, SVG and scroll-linked animation. |
+| `animejs` | `4.5.0` | Coordinated timelines, SVG drawing/morphing, scroll-linked storytelling and responsive animation scopes. |
 | `@lucide/astro` | `1.47.0` | Inline SVG interface icons. |
 | `@astrojs/sitemap` | `3.7.4` | Generate a sitemap using the final website URL. |
 | `typescript` | `6.0.3` | Typed content and script checking; development dependency. |
@@ -36,35 +40,35 @@ Compatibility findings:
 - Astro declares Vite `^8.0.13`, which is within the Tailwind plugin's supported Vite range.
 - `@lucide/astro` explicitly supports Astro 7.
 - `@astrojs/check` currently accepts TypeScript 5 or 6. Use `6.0.3`, even though npm's latest TypeScript is `7.0.2`.
-- Motion's React peer dependencies are optional. Use imports from `motion`; this design does not require React.
+- Anime.js `4.5.0` was checked on 21 September 2026 using npm metadata; it provides ESM exports and TypeScript declarations. Use the documented v4 API and validate the selected imports in the initial prototype. This design does not require React or a second animation engine.
 - Actual package resolution, build compatibility and dependency advisories must be checked when installing.
 
 Planned installation commands, after scaffolding the project:
 
 ```powershell
-npm install --save-exact astro@7.3.3 tailwindcss@4.3.3 @tailwindcss/vite@4.3.3 motion@13.4.0 @lucide/astro@1.47.0 @astrojs/sitemap@3.7.4
+npm install --save-exact astro@7.3.3 tailwindcss@4.3.3 @tailwindcss/vite@4.3.3 animejs@4.5.0 @lucide/astro@1.47.0 @astrojs/sitemap@3.7.4
 npm install --save-dev --save-exact typescript@6.0.3 @astrojs/check@0.9.10 @playwright/test@1.63.0 @axe-core/playwright@4.13.0
 npx playwright install chromium
 ```
 
 Use system fonts initially; bundle licensed WOFF2 files if a custom typeface is selected. Native HTML anchors, CSS scrolling, SVG graphics and print styles need no additional packages. GitHub Actions handles deployment, so a `gh-pages` npm dependency is unnecessary. Additional animation engines, 3D libraries and UI frameworks are outside the initial package set.
 
-Official references: [Astro deployment](https://docs.astro.build/en/guides/deploy/github/), [Tailwind with Astro](https://tailwindcss.com/docs/installation/framework-guides/astro), [Motion JavaScript](https://motion.dev/docs/quick-start), [Lucide for Astro](https://lucide.dev/guide/astro), [Astro sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/), [Playwright](https://playwright.dev/docs/intro), [Playwright accessibility testing](https://playwright.dev/docs/accessibility-testing). Exact versions and peer requirements came from npm registry metadata.
+Official references: [Astro deployment](https://docs.astro.build/en/guides/deploy/github/), [Tailwind with Astro](https://tailwindcss.com/docs/installation/framework-guides/astro), [Anime.js documentation](https://animejs.com/documentation/), [Lucide for Astro](https://lucide.dev/guide/astro), [Astro sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/), [Playwright](https://playwright.dev/docs/intro), [Playwright accessibility testing](https://playwright.dev/docs/accessibility-testing). Exact versions and peer requirements came from npm registry metadata.
 
 ## Page and content plan
 
-Build one complete page with anchor navigation. This keeps the resume easy to scan and supports direct links to projects or experience.
+Build one complete page with anchor navigation and a continuous narrative composition. The table below inventories content, not a template for identical stacked cards. On wide screens, scene transitions connect the material visually; narrow screens retain the story through compact drawings and readable layouts. Recruiters can jump directly to any section or download the resume without completing the sequence.
 
 | Section | Resume content and presentation |
 | --- | --- |
 | Hero | Sahil Shah; proposed descriptor: “AI & Machine Learning · Python · SAP ABAP”; concise introduction identifying him as a Curtin Master of Computing graduate with professional Accenture experience. Buttons: View Projects, Download Resume and Contact. |
 | About | Summarise the professional profile and incorporate dependable, adaptable and collaborative working attributes without repeating a separate soft-skills essay. |
-| Featured projects | Large ECG project card, followed by chest X-ray disease detection and tuberculosis detection cards. Show dates, methods and supported results. |
-| Skills | Group programming; AI and machine learning; data preparation and evaluation; cloud/database foundations; professional skills. Preserve the resume's distinction between foundational knowledge and practical experience. |
+| Featured projects | Interactive ECG data-to-model scene, followed by an editorial project explorer for chest X-ray and tuberculosis work. Show dates, methods and supported results. |
+| Skills | Connected capability map grounded in the projects, with an equivalent readable list. Group programming, AI, data evaluation, cloud/database foundations and professional skills without implying equal proficiency. |
 | Experience | Feature Accenture as relevant technical experience and retain Woolworths and Optus in a clearly dated additional-experience group. |
 | Education | Curtin University Master of Computing, AI major, 2024–2026, Distinction, CWA 82.6%; L.D. College of Engineering BE, Electronics and Communication, 2018–2022, Distinction, CGPA 9.11. Do not invent a CGPA denominator. |
 | Achievements | Two Dean's Letters of Commendation, Semester 2 2024 and Semester 1 2025; first place at Kaizen 2022 for the final-year project. |
-| Contact/footer | Email, LinkedIn, optional telephone link and GitHub once supplied; repeat the resume download. Include a clean print layout. |
+| Contact/footer | Email, verified LinkedIn, optional telephone link and GitHub profile `https://github.com/sahilshah2904`; repeat the resume download. Include a clean print layout. |
 
 Project details to preserve:
 
@@ -89,29 +93,27 @@ Content rules:
 
 ## Animation design
 
-Use a small, consistent motion vocabulary throughout the page:
+Core concept: **From signal to insight**. A visual signal becomes an ECG waveform, connects preprocessing and model evaluation, branches into practical capabilities, then resolves into experience and a contact invitation. All graphics are illustrative; medical project results stay clearly labelled.
 
-| Element | Planned behaviour |
-| --- | --- |
-| Hero introduction | Heading, summary and buttons enter in a short stagger, approximately 450–700 ms overall. |
-| ECG illustration | Decorative SVG path draws once on entry, then settles. Label it as decorative for assistive technology. |
-| Section reveals | Small upward movement and fade, 350–500 ms; play once as the section enters the viewport. |
-| Project cards | Gentle elevation and border/accent transition on hover; equivalent visible keyboard focus. |
-| Experience timeline | Draw the decorative timeline as its section comes into view; preserve readable static text. |
-| Navigation | Active-section indicator and a subtle scroll progress line. |
-| Buttons and mobile menu | Brief 150–220 ms feedback; maintain predictable keyboard operation. |
+| Scene | Signature behaviour | Visitor control |
+| --- | --- | --- |
+| Introduction | Short typographic entrance with a signal tracing into the hero composition. | Resume, projects and contact links immediately available. |
+| ECG case study | A shared SVG stage changes from records to preprocessing, model ensemble and evaluation; concise annotations follow the active step. | Native scroll plus direct chapter anchors; no mandatory playback. |
+| Other projects | A project explorer changes its illustration and emphasis as visitors choose the X-ray or tuberculosis story. | Native disclosure controls enhanced with animation; tap and keyboard support. |
+| Skills | Connections highlight how methods relate to documented projects, with static skill labels. | Optional focus/tap highlights; complete list always readable. |
+| Journey and contact | The signal becomes a dated career/education path and settles into the final contact composition. | Direct experience/contact links and standard page navigation. |
 
-Implementation constraints: favour transform and opacity animation, keep native scrolling, minimise large blur effects, and ensure everything is readable if JavaScript fails. Honour `prefers-reduced-motion` in both CSS and JavaScript, including changes while the page is open. Reduced-motion mode removes the ECG drawing, movement and animated scrolling. Decorative effects must not delay access to content or run indefinitely. Simplify effects on small screens.
+Anime.js provides `createTimeline`, `createScope`, `onScroll` and SVG utilities suitable for this proposal. Use scene-local timelines and semantic HTML; CSS owns sticky positioning and basic focus/hover styles. Verify those mechanisms in the first prototype. References: [timelines](https://animejs.com/documentation/timeline), [scopes](https://animejs.com/documentation/scope), [events](https://animejs.com/documentation/events), [SVG](https://animejs.com/documentation/svg).
 
-Use Motion's vanilla `animate`, `inView`, `stagger` and `scroll` APIs where appropriate; CSS handles straightforward hover/focus transitions. [Motion API overview](https://motion.dev/docs/quick-start) and [scroll API](https://motion.dev/docs/scroll).
+The detailed [animation specification](docs/ANIMATION_DESIGN.md) is the implementation contract. It covers reverse/fast scrolling, interruptions, breakpoint changes, no-JavaScript rendering, keyboard navigation, reduced motion, and short/mobile viewports. The [delivery plan](docs/DELIVERY_PLAN.md) sets prototype gates and performance budgets. Basic fades remain supporting effects; they do not satisfy the connected-flow requirement by themselves.
 
 ## GitHub hosting plan
 
-Recommended public repository: `<username>.github.io`, giving `https://<username>.github.io/`. GitHub Pages supports static sites and is available for public repositories on GitHub Free. A project repository is an alternative, with a URL under `/<repository>/`. [GitHub Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+Selected repository: `sahilshah2904/sahil-shah-portfolio`, giving the project-site URL `https://sahilshah2904.github.io/sahil-shah-portfolio/`. This replaces the initial suggestion of a dedicated user-site repository. GitHub Pages supports static sites and is available for public repositories on GitHub Free. [GitHub Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-1. Obtain the GitHub username and check whether the account already has a user-site repository.
+1. Repository connection completed: GitHub username `sahilshah2904`, repository `sahil-shah-portfolio`, branch `main`.
 2. Keep the original resume files intact. During implementation, copy the PDF into `public/Sahil_Shah_Resume.pdf` so it is included in the generated site.
-3. Set Astro's `site` to the real public URL. For a project site, also set `base` to the repository path and use base-aware asset/download links. Use static output.
+3. Set Astro's `site` to `https://sahilshah2904.github.io` and `base` to `/sahil-shah-portfolio`. Use base-aware asset/download links and static output. See the [deployment guide](docs/DEPLOYMENT.md).
 4. Prepare `.github/workflows/deploy.yml` using Astro's official GitHub Pages workflow. Run checks and build before deployment, and publish the generated site on successful pushes to `main`.
 5. Configure repository Settings → Pages → Source as GitHub Actions. Use the workflow's Pages permissions and deployment environment.
 6. Verify the published URL, HTTPS, navigation, asset paths and PDF download. Add the URL to the GitHub profile website field; optionally link it from a profile README.
@@ -120,13 +122,9 @@ Deployment reference: [Astro's GitHub Pages guide](https://docs.astro.build/en/g
 
 ## Implementation sequence and deliverables
 
-1. **Foundation:** scaffold Astro in the workspace while preserving the source documents; install the selected packages; create the lockfile, scripts, strict type configuration and ignore rules.
-2. **Content:** store typed resume data in `src/data/resume.ts`; implement semantic sections; add the PDF download and contact links. Check each factual claim against the PDF.
-3. **Visual design:** define colours, typography, spacing and responsive layouts; build the hero illustration, project cards, experience timeline and print styles.
-4. **Motion:** implement the animation specification with shared timings, reduced-motion support and readable no-JavaScript fallbacks.
-5. **Validation:** run type checks and production build; inspect mobile, tablet and desktop; check keyboard navigation, menu behaviour, contact links and PDF download. Use Playwright for meaningful interaction checks and axe for automated accessibility findings, supplemented by manual review.
-6. **Release preparation:** add title/description, canonical URL, social preview metadata, favicon, sitemap and robots.txt; prepare the deployment workflow and update instructions.
-7. **Publish and verify:** connect the actual GitHub repository, deploy, verify the public site and link it from the profile. Account access and the repository choice are required for this phase.
+Follow the milestone sequence in the [delivery plan](docs/DELIVERY_PLAN.md#milestones-and-review-gates). The critical path is: content/storyboard → foundation and one working scene → responsive motion validation → remaining scenes → full QA → deployment and handoff. Build the hero-to-ECG transition early to expose design, performance and accessibility problems before investing in the whole site.
+
+Use the dated project log for evidence and decisions. Milestone completion requires the stated outputs and checks; installing Anime.js or showing a desktop demo alone does not complete the animation milestone.
 
 Acceptance criteria:
 
@@ -138,11 +136,13 @@ Acceptance criteria:
 - No critical/serious automated accessibility findings remain; manual keyboard and contrast review passes.
 - Aim for mobile Lighthouse scores of 90+ in performance, accessibility, best practices and SEO; measure the finished build rather than guaranteeing scores in advance.
 - Resume content can be updated from one data file; repeat deployment is documented.
+- At least three distinct, connected storytelling interactions satisfy the scene specification: hero-to-ECG handoff, ECG pipeline progression and project explorer. A sequence of repeated fade-in sections is insufficient.
+- The enhanced experience handles direct links, fast/reverse scrolling, resize, reduced-motion changes and animation initialisation failure without losing content or focus.
+- Performance budgets, browser coverage and release blockers in the delivery plan have recorded results or explicitly recorded unresolved limitations.
 
 ## Inputs still to resolve
 
-- GitHub username and intended repository; these are absent from the resume.
-- Visual preference. Use the proposed charcoal/teal direction unless another preference is supplied.
+- Colour/type preference remains open. Use charcoal/teal provisionally; the Anime.js-driven narrative direction is selected.
 - Intended LinkedIn destination and any project repository/demo links. Hide unavailable project actions.
 - Confirm employment marked “Present” still reflects the intended public resume at launch.
 
